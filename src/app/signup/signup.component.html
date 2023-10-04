@@ -1,0 +1,94 @@
+<div class="container signup-main-container">
+    <div class="card">
+        <div class="card-header" style="background-color: #cecaca;">
+            <h4 class="text-center"><span id="text1">Welcome</span>&nbsp;<span id="text2">Technophile</span></h4>
+        </div>
+        <div class="card-body">
+            <div *ngIf="verified; else verify_form">
+                <form [formGroup]="signupGroup" class="mt-2" (ngSubmit)="signup()" novalidate>
+                    <div class="input-field">
+                        <i class="fa fa-user"></i>
+                        <input type="text" placeholder="Username" [(ngModel)]="username" name="userName"
+                            formControlName="username" (ngModelChange)="usernameChange()">
+                    </div>
+                    <div *ngFor="let validation of validation_messages.username">
+                        <div class="error-msg"
+                            *ngIf="signupDataSubmitted && signupGroup.get('username').hasError(validation.type)">
+                            {{ validation.message }}
+                        </div>
+                    </div>
+                    <div class="error-msg" *ngIf="userNameError">
+                        {{ user_error_message }}
+                    </div>
+
+                    <div class="input-field mt-4">
+                        <i class="fa fa-key"></i>
+                        <input type="password" placeholder="Password" [(ngModel)]="password" name="passWord"
+                            formControlName="password" (ngModelChange)="passwordChange()">
+                    </div>
+                    <div class="input-field confiorm-pass-field mt-4">
+                        <i class="fa fa-key"></i>
+                        <input type="password" placeholder="Confirm Password" [(ngModel)]="confirm_password"
+                            name="confirmPassord" formControlName="confirm_password" (ngModelChange)="passwordChange()">
+                        <i class="fa fa-eye" id="visible" [ngClass]="toggle ? 'fa-eye' : 'fa-eye-slash'"
+                            (click)="togglePasswordVisibility()"></i>
+                    </div>
+
+                    <div class="error-msg" *ngIf="!password_match">
+                        Passwords do not match!
+                    </div>
+
+                    <div *ngFor="let validation of validation_messages.password">
+                        <div class="error-msg"
+                            *ngIf="signupDataSubmitted && signupGroup.get('password').hasError(validation.type)">
+                            {{ validation.message }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn mt-5"><b>Submit</b></button>
+                </form>
+            </div>
+            <ng-template #verify_form>
+                <form [formGroup]="emailValidationGroup" class="mt-2" (ngSubmit)="verifyEmail()" novalidate>
+                    <p class="hint">
+                        ** Enter the email address you want to use for signing up. This email address can be used to
+                        recover
+                        your password incase you forget it.
+                    </p>
+                    <div class="input-field">
+                        <i class="fa fa-envelope-o"></i>
+                        <input type="text" placeholder="Email" [(ngModel)]="email" name="email" formControlName="email"
+                            (ngModelChange)="emailChange()">
+                    </div>
+                    <div *ngFor="let validation of validation_messages.email">
+                        <div class="error-msg"
+                            *ngIf="emailSubmitted && emailValidationGroup.get('email').hasError(validation.type)">
+                            {{ validation.message }}
+                        </div>
+                    </div>
+                    <div class="error-msg" *ngIf="emailSubmitted && verify_error">
+                        {{ verify_error_message }}
+                    </div>
+                    <div *ngIf="mail_sent">
+                        <p class="success-msg">{{ email_sent_msg }}</p>
+                        <p class="success-msg">Please check your mail and complete the process.</p>
+                    </div>
+                    <button type="submit" class="submit-btn mt-3">Submit</button>
+                </form>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<div id="modal-container">
+    <div class="modal-background">
+        <div class="modal">
+            <h2>Success!</h2>
+            <p>{{ signup_success_message }}</p>
+            <svg class="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                preserveAspectRatio="none">
+                <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"></rect>
+            </svg>
+        </div>
+    </div>
+</div>

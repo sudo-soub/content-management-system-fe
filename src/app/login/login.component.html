@@ -1,0 +1,31 @@
+<div class="container login-main-container">
+    <div class="card">
+        <div class="card-header" style="background-color: #cecaca;">
+            <h4 class="text-center"><span id="text1">Welcome</span>&nbsp;<span id="text2">Technophile</span></h4>
+        </div>
+        <div class="card-body">   
+            <form class="mt-2" (ngSubmit)="login()" novalidate>
+                <div class="input-field">
+                    <i class="fa fa-user"></i>
+                    <input type="text" placeholder="Username" [(ngModel)]="username" name="username" (ngModelChange)="usernameChange()">
+                </div>
+                
+                <div class="input-field password-field mt-4">
+                    <i class="fa fa-key"></i>
+                    <input type="password" class="password" placeholder="Password" [(ngModel)]="password" name="password" (ngModelChange)="passwordChange()">
+                    <i class="fa fa-eye" id="visible" [ngClass]="toggle ? 'fa-eye' : 'fa-eye-slash'"
+                            (click)="togglePasswordVisibility()"></i>
+                </div>
+
+                <div class="error-msg" *ngIf="login_error">
+                    {{ login_error_message }}
+                </div>
+                
+                <button type="submit" class="submit-btn mt-5"><b>Submit</b></button>
+            </form>
+            <div class="goto-signup" (click)="gotoSignup()">
+                Create your account <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+</div>
