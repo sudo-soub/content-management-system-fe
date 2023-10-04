@@ -1,3 +1,5 @@
+# content-management-system-fe
+Frontend for content management system made using Angular.
 # CmsFe
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.4.
