@@ -16,10 +16,6 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.username = localStorage.getItem("username");
-    if(!this.username) {
-      this.router.navigateByUrl("login");
-    }
     this.data = [
       {
         id: 1,

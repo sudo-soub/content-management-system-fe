@@ -21,6 +21,30 @@
                         {{ user_error_message }}
                     </div>
 
+                    <div class="input-field">
+                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                        <input type="text" name="firstName" [(ngModel)]="firstname" placeholder="First Name" 
+                            formControlName="firstname" (ngModelChange)="firstnameChange()">
+                    </div>
+                    <div *ngFor="let validation of validation_messages.firstname">
+                        <div class="error-msg"
+                            *ngIf="signupDataSubmitted && signupGroup.get('firstname').hasError(validation.type)">
+                            {{ validation.message }}
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                        <input type="text" name="lastName" [(ngModel)]="lastname" placeholder="Last Name"
+                            formControlName="lastname" (ngModelChange)="lastnameChange()">
+                    </div>
+                    <div *ngFor="let validation of validation_messages.lastname">
+                        <div class="error-msg"
+                            *ngIf="signupDataSubmitted && signupGroup.get('lastname').hasError(validation.type)">
+                            {{ validation.message }}
+                        </div>
+                    </div>
+
                     <div class="input-field mt-4">
                         <i class="fa fa-key"></i>
                         <input type="password" placeholder="Password" [(ngModel)]="password" name="passWord"

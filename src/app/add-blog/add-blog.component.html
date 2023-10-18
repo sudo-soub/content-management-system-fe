@@ -1,0 +1,44 @@
+<div class="container p-5">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="blog">
+                <h2 class="heading">Hey MegaMind!</h2>
+                <h4 class="sub-heading">
+                    What's on your mind today?
+                </h4>
+                <form>
+                    <div class="input-field">
+                        <input type="text" name="title" id="title" placeholder="Title">
+                    </div>
+                    <div class="input-field">
+                        <input type="text" name="description" id="description" placeholder="A small description of the article">
+                    </div>
+                    <div class="input-field">
+                        <label for="addImage">Do you want to add a relevant image?</label>
+                        <input type="checkbox" name="addImage" id="addImage" (change)="addImage($event)">
+                    </div>
+                    <div class="input-field" *ngIf="add_image">
+                        <div class="input-group mb-4" id="spreadsheet">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="fileInput" aria-describedby="fileInput" (change)="getImageDetails($event)">
+                                <label class="custom-file-label" for="fileInput">{{ filename }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="file_format_error">
+                        <span class="error-msg">Please select a file with .jpg or .jpeg extension!</span>
+                    </div>
+                    <div class="preview" *ngIf="preview">
+                        <img [src]="image_src" height="200">
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

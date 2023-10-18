@@ -16,6 +16,8 @@ export class SignupComponent implements OnInit {
   verified: boolean = false;
   email: string;
   username: string;
+  firstname: string;
+  lastname: string;
   password: string;
   confirm_password: string;
   signupGroup: any;
@@ -23,6 +25,8 @@ export class SignupComponent implements OnInit {
   emailSubmitted: boolean = false;
   signupDataSubmitted: boolean = false;
   userNameError: boolean;
+  firstnameError: boolean;
+  lastnameError: boolean;
   passWordError: boolean;
   emailError: boolean = false;
   verify_error: boolean;
@@ -48,6 +52,14 @@ export class SignupComponent implements OnInit {
       { type: 'required', message: 'This field is required!' },
       { type: 'pattern', message: 'Invalid Username!' }
     ],
+    'firstname': [
+      { type: 'required', message: 'This field is required!' },
+      { type: 'pattern', message: 'Invalid Firstname!' }
+    ],
+    'lastname': [
+      { type: 'required', message: 'This field is required!' },
+      { type: 'pattern', message: 'Invalid Lastname!' }
+    ],
     'password': [
       { type: 'required', message: 'This field is required!' },
       { type: 'pattern', message: 'Invalid Password!' }
@@ -67,6 +79,8 @@ export class SignupComponent implements OnInit {
     });
     this.signupGroup = new FormGroup({
       'username': new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]{1}[a-zA-Z0-9_]{2,15}$')]),
+      'firstname': new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]{2,15}$')]),
+      'lastname': new FormControl('', [Validators.required, Validators.pattern('^[A-Z][a-z]{2,15}$')]),
       'password': new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z][a-zA-Z0-9@#$%^&*]{7,32}$')]),
       'confirm_password': new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z][a-zA-Z0-9@#$%^&*]{7,32}$')])
     });
@@ -120,6 +134,14 @@ export class SignupComponent implements OnInit {
     this.userNameError = false;
   }
 
+  firstnameChange() {
+    this.firstnameError = false;
+  }
+
+  lastnameChange() {
+    this.lastnameError = false;
+  }
+
   passwordChange() {
     this.passWordError = false;
     this.password_match = true;
@@ -137,7 +159,8 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
-
+    
+    this.signupDataSubmitted = true;
     if (this.signupGroup.invalid) {
       console.log(this.signupGroup);
       return;
@@ -148,13 +171,14 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    this.signupDataSubmitted = true;
     this.spinner.show();
-    console.log(this.signupGroup);
+    console.log("valid", this.signupGroup);
     let email = localStorage.getItem("email");
     let body = {
       email: email,
       username: this.username,
+      firstname: this.firstname,
+      lastname: this.lastname,
       password: this.password
     }
     this.http.post(this.api_url + "common/create-account/", body).subscribe((res) => {

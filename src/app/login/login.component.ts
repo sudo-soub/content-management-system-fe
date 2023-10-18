@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from "ngx-spinner";
 
+import { AuthService } from "../auth/auth.service";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,12 +26,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {}
 
-  login() {
+  submit() {
     if(!this.username) {
       this.username_error = true;
       return;
@@ -43,15 +46,17 @@ export class LoginComponent implements OnInit {
       password: this.password
     }
     this.spinner.show();
-    this.http.post(this.api_url + "common/user-login/", body).subscribe((res) => {
-      console.log(res);
+    this.authService.login(body).subscribe((res) => {
+      this.authService.loggedIn.next(true);
       this.spinner.hide();
-      localStorage.setItem("username", this.username);
       this.router.navigateByUrl("home");
-    }, (err) => {
+      console.log(res);
+    },
+    (err) => {
       this.spinner.hide();
       this.login_error = true;
       this.login_error_message = err["error"]["error"];
+      console.log(err);
     });
   }
 

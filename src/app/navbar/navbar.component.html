@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-sm sticky-top navbar-light bg-light" *ngIf="is_logged_in | async as isLoggedIn">
+    <div class="container">
+        <a class="navbar-brand" href="#">Brand</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="myblogs">My Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="addblog">Add Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="logout-btn nav-link" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
