@@ -1,1 +1,21 @@
-<p>home works!</p>
+<div class="navbar">
+    
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 text-center">
+            <div class="article-sections" *ngFor="let index of data" (click)="readMore(index['id'])">
+                <h1 class="heading">{{ index["title"] }}</h1>
+                <p class="author">
+                    <span class="font-weight-bold">Authored by: </span>
+                    <span><i>{{ index["author"] }}</i></span>
+                </p>
+                <p class="read-more">
+                    Click to read the complete article
+                </p>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>

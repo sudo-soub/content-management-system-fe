@@ -4,10 +4,13 @@
             <h4 class="text-center"><span id="text1">Welcome</span>&nbsp;<span id="text2">Technophile</span></h4>
         </div>
         <div class="card-body">   
-            <form class="mt-2" (ngSubmit)="login()" novalidate>
+            <form class="mt-2" (ngSubmit)="submit()" novalidate>
                 <div class="input-field">
                     <i class="fa fa-user"></i>
                     <input type="text" placeholder="Username" [(ngModel)]="username" name="username" (ngModelChange)="usernameChange()">
+                </div>
+                <div class="error-msg" *ngIf="username_error">
+                    {{ required_message }}
                 </div>
                 
                 <div class="input-field password-field mt-4">
@@ -19,6 +22,9 @@
 
                 <div class="error-msg" *ngIf="login_error">
                     {{ login_error_message }}
+                </div>
+                <div class="error-msg" *ngIf="password_error">
+                    {{ required_message }}
                 </div>
                 
                 <button type="submit" class="submit-btn mt-5"><b>Submit</b></button>

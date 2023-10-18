@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from "ngx-spinner";
 
+import { AuthService } from "../auth/auth.service";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,27 +19,44 @@ export class LoginComponent implements OnInit {
   login_error: boolean = false;
   login_error_message: string;
   toggle: boolean = false;
+  username_error: boolean = false;
+  password_error: boolean = false;
+  required_message: string = "This field is required!";
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {}
 
-  login() {
+  submit() {
+    if(!this.username) {
+      this.username_error = true;
+      return;
+    }
+    if(!this.password) {
+      this.password_error = true;
+      return;
+    }
     let body = {
       username: this.username,
       password: this.password
     }
     this.spinner.show();
-    this.http.post(this.api_url + "common/user-login/", body).subscribe((res) => {
-      console.log(res);
+    this.authService.login(body).subscribe((res) => {
+      this.authService.loggedIn.next(true);
       this.spinner.hide();
-    }, (err) => {
+      this.router.navigateByUrl("home");
+      console.log(res);
+    },
+    (err) => {
+      this.spinner.hide();
       this.login_error = true;
       this.login_error_message = err["error"]["error"];
+      console.log(err);
     });
   }
 
@@ -54,10 +73,12 @@ export class LoginComponent implements OnInit {
 
   usernameChange() {
     this.login_error = false;
+    this.username_error = false;
   }
 
   passwordChange() {
     this.login_error = false;
+    this.password_error = false;
   }
 
   gotoSignup() {

@@ -1,0 +1,24 @@
+.heading {
+    font-weight: bold;
+    color: rgb(35, 127, 170);
+}
+
+.article-sections {
+    padding: 2rem;
+    border: 2px solid darkgray;
+    border-radius: 2rem;
+    box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.7);
+    margin-bottom: 5rem;
+    cursor: pointer;
+}
+
+.article-sections:active {
+    transform: scale(0.98);
+    box-shadow: 0.8rem 0.8rem 0.8rem 0.8rem rgba(0,0,0,0.7);
+}
+
+.read-more {
+    font-style: italic;
+    color: grey;
+    margin: 0;
+}

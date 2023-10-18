@@ -10,7 +10,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
-import { BlogsComponent } from './blogs/blogs.component';
+import { MyblogsComponent } from './myblogs/myblogs.component';
+import { AddBlogComponent } from './add-blog/add-blog.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { BlogsComponent } from './blogs/blogs.component';
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    BlogsComponent
+    MyblogsComponent,
+    AddBlogComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,7 @@ import { BlogsComponent } from './blogs/blogs.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
