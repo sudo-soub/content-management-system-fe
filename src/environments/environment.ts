@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   api_url: "http://localhost:8000/api/v1/",
   req_key: "6d207e02198a847aa98d0a2a901485a5",
-  req_url: "6d207e02198a847aa98d0a2a901485a5"
+  req_url: "https://freeimage.host/api/1/upload"
 };
 
 /*

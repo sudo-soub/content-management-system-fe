@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { environment } from "../../environments/environment";
+import { NgxSpinnerService } from "ngx-spinner";
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-blog',
@@ -14,8 +17,17 @@ export class AddBlogComponent implements OnInit {
   file_format_error: boolean;
   preview: boolean;
   image_src: string | ArrayBuffer;
+  title: string;
+  description: string;
+  article_body: string;
+  freeimage_url: string = environment.req_url;
+  freeimage_key: string = environment.req_key;
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private spinner: NgxSpinnerService,
+
+  ) { }
 
   ngOnInit(): void {
   }
@@ -51,7 +63,21 @@ export class AddBlogComponent implements OnInit {
   }
 
   uploadImage() {
-
+    this.spinner.show();
+    const headers = new HttpHeaders();
+    headers.set("Access-Control-Allow-Origin", "*");
+    const form_data = new FormData();
+    form_data.append("key", this.freeimage_key);
+    form_data.append("source", this.file);
+    this.http.post(this.freeimage_url, form_data, {"headers": headers}).subscribe((res) => {
+      console.log("success");
+      console.log(res);
+      this.spinner.hide();
+    },(err) => {
+      console.log("error");
+      console.log(err);
+      this.spinner.hide();
+    });
   }
 
 }

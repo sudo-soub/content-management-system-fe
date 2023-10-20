@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +12,21 @@ export class HomeComponent implements OnInit {
 
   username: string;
   data = [];
+  is_logged_in: boolean;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    this.authService.isLoggedIn.subscribe((res) => {
+      this.is_logged_in = res;
+    });
+    if(!this.is_logged_in) {
+      this.router.navigateByUrl("login");
+    }
+    
     this.data = [
       {
         id: 1,
@@ -34,7 +45,7 @@ export class HomeComponent implements OnInit {
         developers getting started in the field. He was once an amateur developer and wants to help others, imparting lessons learned during his \
         professional journey and sharing the tools that helped him most. The blog, plus his email course and newsletter, accommodate any level of expertise."
       }
-    ]
+    ];
   }
 
   readMore(id: number){
