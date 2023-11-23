@@ -48,9 +48,9 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
     this.authService.login(body).subscribe((res) => {
       this.authService.loggedIn.next(true);
+      this.authService.setSession(res);
       this.spinner.hide();
       this.router.navigateByUrl("home");
-      console.log(res);
     },
     (err) => {
       this.spinner.hide();

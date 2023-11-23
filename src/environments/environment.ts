@@ -5,8 +5,16 @@
 export const environment = {
   production: false,
   api_url: "http://localhost:8000/api/v1/",
-  req_key: "6d207e02198a847aa98d0a2a901485a5",
-  req_url: "https://freeimage.host/api/1/upload"
+  tinymce_key: "dwlfxausegynvozudf35awia9i6xcgsztlwdalte154gnl5n",
+  firebaseConfig: {
+    apiKey: "AIzaSyBBFnjiKjQrZfBxFashGWukETjUkClP0p4",
+    authDomain: "image-storage-2811.firebaseapp.com",
+    projectId: "image-storage-2811",
+    storageBucket: "image-storage-2811.appspot.com",
+    messagingSenderId: "152934101059",
+    appId: "1:152934101059:web:ac57ce3e449a3be26f24f6",
+    measurementId: "G-109WQ5MSHM"
+  }
 };
 
 /*

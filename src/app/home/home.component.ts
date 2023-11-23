@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -11,45 +13,31 @@ import { AuthService } from '../auth/auth.service';
 export class HomeComponent implements OnInit {
 
   username: string;
-  data = [];
+  data: any = [];
   is_logged_in: boolean;
+  api_url = environment.api_url;
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-    this.authService.isLoggedIn.subscribe((res) => {
-      this.is_logged_in = res;
-    });
-    if(!this.is_logged_in) {
-      this.router.navigateByUrl("login");
-    }
+    const token = localStorage.getItem("access_key");
+    // if (!token) {
+    //   return;
+    // }
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
-    this.data = [
-      {
-        id: 1,
-        title: "Machine Learning is Fun",
-        author: "Adam Geitgey",
-        description: "Machine Learning is Fun is a valuable, introductory blog. It covers the tenets of ML through interactive tutorials and\
-        practical examples, which make it easier to see the useful applications to different businesses and industries. Author Adam Geitgey is a \
-        former software developer who now consults organizations on implementing machine learning. He believes ML is integral to the future of \
-        software and that developers should have a strong working knowledge, so he provides guides and techniques to help them develop and grow."
-      },
-      {
-        id: 2,
-        title: "Machine Learning Mastery",
-        author: "Jason Brownlee",
-        description: "A machine learning developer with several AI-related degrees, Jason intended his Machine Learning Mastery blog for new \
-        developers getting started in the field. He was once an amateur developer and wants to help others, imparting lessons learned during his \
-        professional journey and sharing the tools that helped him most. The blog, plus his email course and newsletter, accommodate any level of expertise."
-      }
-    ];
+    // this.http.get(this.api_url + "blogs/blog", {headers: headers}).subscribe((res) => {
+    //   this.data = res["message"];
+    // });
+    
   }
 
   readMore(id: number){
-    console.log(id);
+    this.router.navigateByUrl("blog/" + id);
   }
 
 }
