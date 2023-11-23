@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { MyblogsComponent } from './myblogs/myblogs.component';
 import { AddBlogComponent } from './add-blog/add-blog.component';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: "addblog",
     component: AddBlogComponent
+  },
+  {
+    path: "blog/:blog_id",
+    component: BlogComponent
   }
 ];
 

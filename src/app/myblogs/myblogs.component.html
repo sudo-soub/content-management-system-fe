@@ -1,1 +1,21 @@
-<p>myblogs works!</p>
+<div class="container mt-5">
+   <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="article-sections" *ngFor="let index of data">
+                <h3 class="heading">{{ index['blogname'] }}</h3>
+                <p class="description">{{ index['description'] }}</p>
+                <div class="row">
+                    <div id="edit" class="buttons text-center col-6">
+                        Edit
+                    </div>
+                    <div id="delete" class="buttons text-center col-6"
+                    (click)="confirmDeletion(index['id'])">
+                        Delete
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+   </div>
+</div>

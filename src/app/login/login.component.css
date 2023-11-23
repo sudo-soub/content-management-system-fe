@@ -132,10 +132,6 @@ form {
 }
 
 .goto-signup {
-    padding-top: 2rem;
-    padding-left: 0.7rem;
-    padding-bottom: 1rem;
-    text-align: center;
     color: #383838;
     font-weight: 500;
 }
@@ -146,3 +142,13 @@ form {
     transition: all 0.8s ease;
     letter-spacing: 0.08em;
 }
+
+@media only screen and (max-width: 600px) {
+    .card {
+        max-width: 80%;
+    }
+
+    .heading {
+        font-size: 1.5em;
+    }
+  }

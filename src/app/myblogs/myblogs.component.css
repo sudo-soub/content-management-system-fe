@@ -1,0 +1,35 @@
+.heading {
+    font-weight: bold;
+    color: rgb(35, 127, 170);
+}
+
+.article-sections {
+    padding: 2rem;
+    border: 2px solid darkgray;
+    border-radius: 2rem;
+    box-shadow: 1rem 1rem 1rem 1rem rgba(0,0,0,0.7);
+    margin-bottom: 5rem;
+}
+
+.article-sections:active {
+    transform: scale(0.98);
+    box-shadow: 0.8rem 0.8rem 0.8rem 0.8rem rgba(0,0,0,0.7);
+}
+
+.buttons {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.buttons:hover {
+    letter-spacing: 0.08em;
+    transition: all 0.5s ease;
+}
+
+#edit:hover {
+    color: green;
+}
+
+#delete:hover {
+    color: red;
+}

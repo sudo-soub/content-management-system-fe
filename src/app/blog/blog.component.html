@@ -1,0 +1,10 @@
+<div class="container blog-container" *ngIf="found">
+    <h3 class="heading">{{ data["blogname"] }}</h3>
+    <h5 class="description">{{ data["description"] }}</h5>
+    <span class="author">Written by: {{ data["user__first_name"] }} {{ data["user__last_name"] }}</span>
+    <hr class="line">
+    <div class="image-div">
+        <img src="{{ data['imageurl'] }}" alt="" class="image">
+    </div>
+    <p class="article">{{ data["article_body"] }}</p>
+</div>

@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from "ngx-spinner";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-blog',
@@ -7,51 +12,63 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class AddBlogComponent implements OnInit {
 
-  add_image: boolean;
-  image_uploaded: boolean;
-  filename: string = "File Name";
-  file: File;
-  file_format_error: boolean;
-  preview: boolean;
-  image_src: string | ArrayBuffer;
+  is_logged_in: boolean;
+  api_url: string = environment.api_url;
+  title: string;
+  blogdata: any;
+  submit_error: boolean = false;
+  submit_error_message: string = "";
+  tinymce_key = environment.tinymce_key;
+  init = {
+    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount preview',
+    toolbar: [
+      'undo redo | formatselect fontselect fontsizeselect forecolor | style_fontsize | bold italic underline strikethrough | link image media table',
+      'emoticons charmap removeformat | alignleft aligncenter alignright alignjustify lineheight | numlist bullist indent outdent'
+    ],
+    height: 500,
+    placeholder: "Start sharing your ideas here......"
+  }
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private spinner: NgxSpinnerService,
+    private authService: AuthService,
+    private router: Router,
+
+  ) { }
 
   ngOnInit(): void {
   }
 
-  addImage(e) {
-    if (e.target.checked) {
-      this.add_image = true;
-    }
-    else {
-      this.add_image = false;
-    }
+  editorChanges() {
+    this.submit_error = false;
   }
-
-  getImageDetails(e) {
-    if (e.target.files && e.target.files[0]) {
-      this.file = e.target.files[0];
-      this.filename = this.file.name;
-      if (this.file.type != "image/jpeg") {
-        console.log(this.file.type);
-        this.file_format_error = true;
-        return;
-      }
-      else {
-        this.file_format_error = false;
-        this.preview = true;
-        var reader = new FileReader();
-        reader.readAsDataURL(this.file);
-        reader.onload = (e) => {
-          this.image_src = e.target.result;
-        }
-      }
+  
+  submit() {
+    console.log("submitted");
+    const token = localStorage.getItem("access_key");
+    // if (!token) {
+    //   return;
+    // }
+    if(!this.blogdata) {
+      this.submit_error = true;
+      this.submit_error_message = "Share some data with us......"
+      return;
     }
-  }
-
-  uploadImage() {
-
+    console.log(this.blogdata);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const body = {
+      user: localStorage.getItem("username"),
+      blogname: this.title,
+      blog_data: this.blogdata
+    };
+    const req_url = this.api_url + "blogs/blog";
+    this.http.post(req_url, body, { "headers": headers }).subscribe((res) => {
+      console.log(res);
+    },
+    (err) => {
+      console.log(err);
+    });
   }
 
 }
